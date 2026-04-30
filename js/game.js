@@ -67,10 +67,10 @@ function bindTopActions() {
 
 function openHelpPopup() {
   const content = [
-    'Goal: Fill the 3x3 board with the correct birds for MAGGIATAL.',
+    'Goal: Fill the 3x3 grid with the birds to form the solution word.',
     'Tap a bird card, then tap an empty board field to place it.',
     'Double-tap a placed bird to return it to the slider.',
-    'Each card costs resources. Returned cards refund those resources.',
+    'Each food item should only appear once per column and row (sudoku)',
     'Mississippiweih is already placed as the starting bird.'
   ];
 
