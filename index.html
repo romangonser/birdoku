@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Birdoku</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════
+       TOP SECTION — 20vh — Ressourcen
+  ══════════════════════════════════════════ -->
+  <section id="top-section">
+    <div class="resource-bar">
+      <div class="resource" id="res-berry">
+        <img src="assets/icons/berry.png" alt="Beere" class="resource-icon" />
+        <!-- Fallback Emoji wenn kein Bild -->
+        <span class="resource-emoji" aria-hidden="true">🫐</span>
+        <span class="resource-count" data-resource="berry">3</span>
+      </div>
+      <div class="resource" id="res-grain">
+        <img src="assets/icons/grain.png" alt="Korn" class="resource-icon" />
+        <span class="resource-emoji" aria-hidden="true">🌽</span>
+        <span class="resource-count" data-resource="grain">3</span>
+      </div>
+      <div class="resource" id="res-mouse">
+        <img src="assets/icons/mouse.png" alt="Maus" class="resource-icon" />
+        <span class="resource-emoji" aria-hidden="true">🐭</span>
+        <span class="resource-count" data-resource="mouse">3</span>
+      </div>
+      <div class="resource" id="res-fish">
+        <img src="assets/icons/fish.png" alt="Fisch" class="resource-icon" />
+        <span class="resource-emoji" aria-hidden="true">🐟</span>
+        <span class="resource-count" data-resource="fish">3</span>
+      </div>
+      <div class="resource" id="res-worm">
+        <img src="assets/icons/worm.png" alt="Wurm" class="resource-icon" />
+        <span class="resource-emoji" aria-hidden="true">🪱</span>
+        <span class="resource-count" data-resource="worm">3</span>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <button class="icon-btn" id="hint-btn" title="Tipp">💡</button>
+      <button class="icon-btn" id="help-btn" title="Hilfe">❓</button>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CARD SECTION — 30vh — Vogelkarten Slider
+  ══════════════════════════════════════════ -->
+  <section id="card-section">
+    <h2 class="section-title">Choose Your Bird</h2>
+    <div class="card-slider-wrapper">
+      <div class="card-slider" id="card-slider">
+        <!-- Karten werden per JS generiert -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       BOARD SECTION — 50vh — 3×3 Spielfeld
+  ══════════════════════════════════════════ -->
+  <section id="board-section">
+    <div class="board" id="board">
+      <!-- 9 Felder -->
+      <div class="board-cell" data-index="0"></div>
+      <div class="board-cell" data-index="1"></div>
+      <div class="board-cell" data-index="2"></div>
+      <div class="board-cell" data-index="3"></div>
+      <div class="board-cell" data-index="4"></div>
+      <div class="board-cell" data-index="5"></div>
+      <div class="board-cell" data-index="6"></div>
+      <div class="board-cell" data-index="7"></div>
+      <div class="board-cell" data-index="8"></div>
+    </div>
+  </section>
+
+<script src="js/birds.js"></script>
+<script src="js/win.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

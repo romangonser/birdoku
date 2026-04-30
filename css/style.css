@@ -1,0 +1,510 @@
+/* ═══════════════════════════════════════
+   BIRDOKU — CSS
+   Mobile-first, alles in vh/vw
+═══════════════════════════════════════ */
+
+:root {
+  --bg: #ffa1ef;
+  --bg-light: #2e2e2e00;
+  --card-bg: #ffffff;
+  --board-bg: #8adfc6ce;
+  --board-cell: #ffffff;
+  --board-border: #00664e;
+  --text-dark: #000000;
+  --text-mid: #3a6a7a;
+  --accent: #f5c842;
+  --danger: #e05a5a;
+  --radius-card: 16px;
+  --radius-cell: 14px;
+  --shadow-card: 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-board: 0 8px 32px rgba(0,0,0,0.15);
+
+  /* Heights */
+  --top-h: 20vh;
+  --card-h: 30vh;
+  --board-h: 50vh;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+  font-family: 'helvetica', sans-serif;
+  color: var(--text-dark);
+  touch-action: manipulation;
+}
+
+/* ─────────────────────────────────────
+   TOP SECTION — 20vh
+───────────────────────────────────── */
+#top-section {
+  height: var(--top-h);
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4vw;
+  background: linear-gradient(180deg, #b8ddf0 0%, var(--bg) 100%);
+}
+
+.resource-bar {
+  display: flex;
+  gap: 1.5vw;
+  align-items: center;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(8px);
+  border-radius: 14px;
+  padding: 2vw 2vw;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.resource {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  font-size: 3.5vw;
+  font-weight: bold;
+  color: var(--text-dark);
+  position: relative;
+}
+
+/* Bild-Icon — sichtbar wenn Datei vorhanden */
+.resource-icon {
+  width: 6vw;
+  height: 6vw;
+  object-fit: contain;
+  display: none; /* wird per JS aktiviert wenn Bild geladen */
+}
+
+/* Emoji — Fallback wenn kein Bild */
+.resource-emoji {
+  font-size: 5vw;
+  line-height: 1;
+}
+
+/* Wenn Bild geladen: Emoji verstecken */
+.resource-icon.loaded + .resource-emoji {
+  display: none;
+}
+.resource-icon.loaded {
+  display: block;
+}
+
+.resource-count {
+  font-size: 4vw;
+  font-weight: 900;
+  min-width: 4vw;
+  text-align: center;
+  transition: transform 0.2s, color 0.3s;
+}
+
+.resource-count.depleted {
+  color: var(--danger);
+}
+
+.resource-count.pulse {
+  transform: scale(1.4);
+}
+
+.top-actions {
+  display: flex;
+  gap: 2vw;
+}
+
+.icon-btn {
+  width: 10vw;
+  height: 10vw;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(8px);
+  font-size: 5vw;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.1s;
+}
+
+.icon-btn:active {
+  transform: scale(0.92);
+}
+
+/* ─────────────────────────────────────
+   CARD SECTION — 30vh
+───────────────────────────────────── */
+#card-section {
+  height: var(--card-h);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  padding: 2vh 0 0;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-light) 100%);
+  overflow: hidden;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 4.5vw;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 1vh;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.card-slider-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-slider {
+  display: flex;
+  gap: 3vw;
+  padding: 1vh 4vw 2vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 100%;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  align-items: center;
+}
+
+.card-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Vogelkarte ── */
+.bird-card {
+  flex-shrink: 0;
+  width: 30vw;
+  height: calc(var(--card-h) - 7vh);
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+  position: relative;
+  border: 3px solid 
+}
+
+.bird-card-media {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.bird-card:active {
+  transform: scale(0.96);
+}
+
+.bird-card.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent), var(--shadow-card);
+  transform: scale(1.04);
+}
+
+/* Vogel-spezifische Hintergrundfarben */
+.bird-bg-green {
+  background: linear-gradient(180deg, #eaffef 0%, #79ff9b 100%);
+  border-color: rgba(84, 160, 98,);
+}
+.bird-bg-green .bird-card-placeholder {
+  background: linear-gradient(200deg, #dff7e0, #79ff9b);
+}
+
+.bird-bg-yellow {
+  background: linear-gradient(180deg, #fffbe6 0%, #f7ce53 100%);
+  border-color: rgba(245,200,66,);
+}
+.bird-bg-yellow .bird-card-placeholder {
+  background: linear-gradient(200deg, #fff3c4, #f7ce53);
+}
+
+.bird-bg-blue {
+  background: linear-gradient(180deg, #e8f7ff 0%, #5cc5fe 100%);
+  border-color: rgba(90, 184, 212,);
+}
+.bird-bg-blue .bird-card-placeholder {
+  background: linear-gradient(200deg, #d6f0ff, #5cc5fe);
+}
+
+/* Board mini elements use same classes */
+.board-bird.bird-bg-green { background: linear-gradient(180deg, #e9fff1, #f6fff8); }
+.board-bird.bird-bg-yellow { background: linear-gradient(180deg, #fffdf0, #fff9ea); }
+.board-bird.bird-bg-blue { background: linear-gradient(180deg, #eefbff, #f5fdff); }
+
+/* Bild-Bereich */
+.bird-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  object-fit: cover;
+  background: transparent;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 1;
+}
+
+.bird-card-img.loaded {
+  opacity: 1;
+}
+
+/* Placeholder wenn kein Bild */
+.bird-card-placeholder {
+  position: absolute;
+  inset: 0;
+  background: transparent; /* let bird-bg-* classes show through */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10vw;
+  z-index: 0;
+}
+
+/* Karten-Info unten */
+.bird-card-info {
+  padding: 1.5vw;
+  background: var(--card-bg);
+  flex-shrink: 0;
+}
+
+.bird-card-name {
+  font-size: 2.5vw;
+  font-weight: 700;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.8vw;
+}
+
+.bird-card-cost {
+  display: flex;
+  gap: 0.5vw;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  justify-content: flex-start;
+}
+
+.cost-item {
+  font-size: 2.4vw;
+  background: rgba(0,0,0,0.05);
+  border-radius: 6px;
+  padding: 0.35vw 0.7vw;
+  display: flex;
+  align-items: center;
+  gap: 0.45vw;
+  flex-shrink: 0;
+}
+
+.cost-icon {
+  width: 3.2vw;
+  height: 3.2vw;
+  object-fit: contain;
+  display: block;
+}
+
+.board-bird-cost {
+  display: flex;
+  gap: 1vw;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 4.2vw;
+  flex: 0 0 auto;
+}
+
+.board-cost-item {
+  display: inline-flex;
+}
+
+.board-cost-icon {
+  width: 3.2vw;
+  height: 3.2vw;
+  object-fit: contain;
+  display: block;
+}
+
+/* ─────────────────────────────────────
+   BOARD SECTION — 50vh
+───────────────────────────────────── */
+#board-section {
+  height: var(--board-h);
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 2vh 5vw;
+}
+
+.board {
+  width: 90vw;
+  height: calc(var(--board-h) - 4vh);
+  background: var(--board-bg);
+  border-radius: 20px;
+  box-shadow: var(--shadow-board);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 2.5vw;
+  padding: 3vw;
+}
+
+.board-cell {
+  background: var(--board-cell);
+  border-radius: var(--radius-cell);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s;
+  border: 2px solid transparent;
+}
+
+.board-cell.occupied {
+  cursor: pointer;
+}
+
+.board-cell.drag-over {
+  background: rgba(245, 200, 66, 0.15);
+  border-color: var(--accent);
+}
+
+/* Mini-Karte im Board */
+.board-bird {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5vw;
+  padding: 1.2vw;
+}
+
+.board-bird-media {
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 7vw;
+}
+
+.board-bird-media > .board-bird-img {
+  position: relative;
+  width: 70%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 1;
+}
+
+.board-bird-media > .board-bird-img.loaded {
+  opacity: 1;
+}
+
+.board-bird-placeholder {
+  position: absolute;
+  inset: 0;
+  font-size: 8vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+
+.board-bird-name {
+  font-size: 1.7vw;
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1.2;
+  flex: 0 0 auto;
+}
+
+.board-cell .double-tap-hint {
+  position: absolute;
+  bottom: 1vw;
+  right: 1.5vw;
+  font-size: 1.8vw;
+  color: rgba(0,0,0,0.25);
+}
+
+/* ─────────────────────────────────────
+   TOAST / FEEDBACK
+───────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 10vh;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(26,58,74,0.9);
+  color: white;
+  padding: 2vw 5vw;
+  border-radius: 999px;
+  font-size: 3.5vw;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ─────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────── */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+
+/* Use 50% transparent overlays for slider cards; keep board-mini styles lighter */
+.bird-card.bird-bg-green {
+  background-color: rgba(84,160,98,0.5);
+  border-color: rgba(84,160,98,0.12);
+}
+.bird-card.bird-bg-yellow {
+  background-color: rgba(245,200,66,0.5);
+  border-color: rgba(245,200,66,0.12);
+}
+.bird-card.bird-bg-blue {
+  background-color: rgba(90,184,212,0.5);
+  border-color: rgba(90,184,212,0.12);
+}
+
+/* Board mini elements use lighter solid backgrounds (unchanged visuals) */
+.board-bird.bird-bg-green { background: linear-gradient(180deg, #e9fff1, #f6fff8); }
+.board-bird.bird-bg-yellow { background: linear-gradient(180deg, #fffdf0, #fff9ea); }
+.board-bird.bird-bg-blue { background: linear-gradient(180deg, #eefbff, #f5fdff); }
