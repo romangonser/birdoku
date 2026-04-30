@@ -3,6 +3,16 @@
    Mobile-first, alles in vh/vw
 ═══════════════════════════════════════ */
 
+/* ------------ RESET ------------- */
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    /* border: 0.5px solid red; */
+    /* zum debuggen */
+}
+
+
 :root {
   --bg: #ffa1ef;
   --bg-light: #2e2e2e00;
@@ -18,6 +28,7 @@
   --radius-cell: 14px;
   --shadow-card: 0 4px 16px rgba(0,0,0,0.12);
   --shadow-board: 0 8px 32px rgba(0,0,0,0.15);
+  ;
 
   /* Heights */
   --top-h: 20vh;
@@ -615,7 +626,7 @@ body > section {
   cursor: pointer;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 500px) {
   .popup-dialog {
     padding: 26px 28px 20px;
   }
