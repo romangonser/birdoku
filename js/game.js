@@ -140,7 +140,7 @@ function openPopup(title, contentHTML) {
   const overlay = document.createElement('div');
   overlay.className = 'popup-overlay';
   overlay.innerHTML = `
-    <div class="popup-dialog" role="dialog" aria-modal="true" aria-label="${title}">
+    <div class="popup-dialog" role="dialog" aria-modal="true" aria-label="${title}" tabindex="-1">
       <button class="popup-close" type="button" aria-label="Close">×</button>
       <h3 class="popup-title">${title}</h3>
       <div class="popup-content">${contentHTML}</div>
@@ -162,17 +162,22 @@ function openPopup(title, contentHTML) {
   const escHandler = (event) => {
     if (event.key === 'Escape') closePopup();
   };
-  overlay.dataset.escHandler = 'true';
-  document.addEventListener('keydown', escHandler, { once: true });
+  overlay._escHandler = escHandler;
+  document.addEventListener('keydown', escHandler);
 
   document.body.appendChild(overlay);
   requestAnimationFrame(() => overlay.classList.add('show'));
-  dialog.focus?.();
+  dialog.focus();
 }
 
 function closePopup() {
   const existing = document.querySelector('.popup-overlay');
   if (!existing) return;
+
+  if (existing._escHandler) {
+    document.removeEventListener('keydown', existing._escHandler);
+  }
+
   existing.remove();
 }
 

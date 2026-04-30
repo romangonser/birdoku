@@ -12,38 +12,46 @@
        TOP SECTION — 20vh — Ressourcen
   ══════════════════════════════════════════ -->
   <section id="top-section">
-    <div class="resource-bar">
-      <div class="resource" id="res-berry">
-        <img src="assets/icons/berry.png" alt="Beere" class="resource-icon" />
-        <!-- Fallback Emoji wenn kein Bild -->
-        <span class="resource-emoji" aria-hidden="true">🫐</span>
-        <span class="resource-count" data-resource="berry">3</span>
-      </div>
-      <div class="resource" id="res-grain">
-        <img src="assets/icons/grain.png" alt="Korn" class="resource-icon" />
-        <span class="resource-emoji" aria-hidden="true">🌽</span>
-        <span class="resource-count" data-resource="grain">3</span>
-      </div>
-      <div class="resource" id="res-mouse">
-        <img src="assets/icons/mouse.png" alt="Maus" class="resource-icon" />
-        <span class="resource-emoji" aria-hidden="true">🐭</span>
-        <span class="resource-count" data-resource="mouse">3</span>
-      </div>
-      <div class="resource" id="res-fish">
-        <img src="assets/icons/fish.png" alt="Fisch" class="resource-icon" />
-        <span class="resource-emoji" aria-hidden="true">🐟</span>
-        <span class="resource-count" data-resource="fish">3</span>
-      </div>
-      <div class="resource" id="res-worm">
-        <img src="assets/icons/worm.png" alt="Wurm" class="resource-icon" />
-        <span class="resource-emoji" aria-hidden="true">🪱</span>
-        <span class="resource-count" data-resource="worm">3</span>
-      </div>
+    <div class="top-item top-item-action">
+      <button class="icon-btn" id="help-btn" title="Hilfe">❓</button>
+      <span class="top-label">Info</span>
     </div>
 
-    <div class="top-actions">
+    <div class="top-item top-item-resources">
+      <div class="resource-bar">
+        <div class="resource" id="res-berry">
+          <img src="assets/icons/berry.png" alt="Beere" class="resource-icon" />
+          <!-- Fallback Emoji wenn kein Bild -->
+          <span class="resource-emoji" aria-hidden="true">🫐</span>
+          <span class="resource-count" data-resource="berry">3</span>
+        </div>
+        <div class="resource" id="res-grain">
+          <img src="assets/icons/grain.png" alt="Korn" class="resource-icon" />
+          <span class="resource-emoji" aria-hidden="true">🌽</span>
+          <span class="resource-count" data-resource="grain">3</span>
+        </div>
+        <div class="resource" id="res-mouse">
+          <img src="assets/icons/mouse.png" alt="Maus" class="resource-icon" />
+          <span class="resource-emoji" aria-hidden="true">🐭</span>
+          <span class="resource-count" data-resource="mouse">3</span>
+        </div>
+        <div class="resource" id="res-fish">
+          <img src="assets/icons/fish.png" alt="Fisch" class="resource-icon" />
+          <span class="resource-emoji" aria-hidden="true">🐟</span>
+          <span class="resource-count" data-resource="fish">3</span>
+        </div>
+        <div class="resource" id="res-worm">
+          <img src="assets/icons/worm.png" alt="Wurm" class="resource-icon" />
+          <span class="resource-emoji" aria-hidden="true">🪱</span>
+          <span class="resource-count" data-resource="worm">3</span>
+        </div>
+      </div>
+      <span class="top-label">RECOURCE</span>
+    </div>
+
+    <div class="top-item top-item-action">
       <button class="icon-btn" id="hint-btn" title="Tipp">💡</button>
-      <button class="icon-btn" id="help-btn" title="Hilfe">❓</button>
+      <span class="top-label">Hint</span>
     </div>
   </section>
 
