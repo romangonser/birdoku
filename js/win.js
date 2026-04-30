@@ -262,10 +262,10 @@ function showWinBanner() {
       padding: 8vw;
       animation: bannerSlideUp 0.5s 0.1s cubic-bezier(0.34,1.56,0.64,1) both;
     ">
-      <div style="font-size: 15vw; margin-bottom: 2vh;">🎉</div>
+      <div style="font-size: 10vw; margin-bottom: 2vh;">🎉</div>
       <div style="
         font-family: Georgia, serif;
-        font-size: 14vw;
+        font-size: 10vw;
         font-weight: 900;
         color: #f5c842;
         letter-spacing: 0.15em;
