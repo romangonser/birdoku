@@ -71,7 +71,8 @@ function openHelpPopup() {
     'Tap a bird card, then tap an empty board field to place it.',
     'Double-tap a placed bird to return it to the slider.',
     'Each food item should only appear once per column and row (sudoku)',
-    'Mississippiweih is already placed as the starting bird.'
+    'Mississippiweih is already placed as the starting bird.',
+    'There are more than one way to solve it but only one gets the confetti 🎉. <br>Can you find it?<br>'
   ];
 
   const listHTML = content.map(line => `<li>${line}</li>`).join('');
@@ -79,8 +80,12 @@ function openHelpPopup() {
 }
 
 function openHintPopup() {
-  const hint = buildHintText();
-  openPopup('Hint', `<p class="popup-text">${hint}</p>`);
+  const content = [
+    'The colors of the bird cards aren\'t random.',
+  ];
+
+  const listHTML = content.map(line => `<li>${line}</li>`).join('');
+  openPopup('Hint', `<ul class="popup-list">${listHTML}</ul>`);
 }
 
 function buildHintText() {
