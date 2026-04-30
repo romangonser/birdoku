@@ -14,6 +14,8 @@ const state = {
 const slider      = document.getElementById('card-slider');
 const boardEl     = document.getElementById('board');
 const boardCells  = document.querySelectorAll('.board-cell');
+const hintBtn     = document.getElementById('hint-btn');
+const helpBtn     = document.getElementById('help-btn');
 
 // Vogel-Farbzuordnung (wird für Karten- und Board-Hintergründe genutzt)
 const BIRD_COLOR_MAP = {
@@ -50,6 +52,128 @@ function init() {
   renderSlider();
   renderBoard();
   bindBoardCells();
+  bindTopActions();
+}
+
+function bindTopActions() {
+  if (helpBtn) {
+    helpBtn.addEventListener('click', openHelpPopup);
+  }
+
+  if (hintBtn) {
+    hintBtn.addEventListener('click', openHintPopup);
+  }
+}
+
+function openHelpPopup() {
+  const content = [
+    'Goal: Fill the 3x3 board with the correct birds for MAGGIATAL.',
+    'Tap a bird card, then tap an empty board field to place it.',
+    'Double-tap a placed bird to return it to the slider.',
+    'Each card costs resources. Returned cards refund those resources.',
+    'Mississippiweih is already placed as the starting bird.'
+  ];
+
+  const listHTML = content.map(line => `<li>${line}</li>`).join('');
+  openPopup('How To Play', `<ul class="popup-list">${listHTML}</ul>`);
+}
+
+function openHintPopup() {
+  const hint = buildHintText();
+  openPopup('Hint', `<p class="popup-text">${hint}</p>`);
+}
+
+function buildHintText() {
+  const hasSolution = typeof SOLUTION !== 'undefined' && SOLUTION;
+
+  if (state.board.every(Boolean)) {
+    return 'The board is already full. If the word is wrong, remove one bird with a double-tap and replace it.';
+  }
+
+  if (hasSolution) {
+    for (let idx = 0; idx < state.board.length; idx += 1) {
+      const expected = SOLUTION[idx];
+      const currentBird = state.board[idx];
+
+      if (currentBird) {
+        const currentLetter = currentBird.name.charAt(0).toUpperCase();
+        if (currentLetter !== expected) {
+          return `Field ${idx + 1} should start with "${expected}". Remove ${currentBird.name} and replace it.`;
+        }
+        continue;
+      }
+
+      const matchingBirds = state.availableCards.filter(bird => {
+        return bird.name.charAt(0).toUpperCase() === expected;
+      });
+
+      if (matchingBirds.length === 0) {
+        return `Field ${idx + 1} needs a bird starting with "${expected}". Try freeing one from the board.`;
+      }
+
+      const affordableBird = matchingBirds.find(canAffordBird) || matchingBirds[0];
+      const status = canAffordBird(affordableBird)
+        ? 'You can place it now.'
+        : 'You may need to return another bird first to recover resources.';
+
+      return `Next target: Field ${idx + 1} (${expected}). Try ${affordableBird.name}. ${status}`;
+    }
+  }
+
+  const affordable = state.availableCards.find(canAffordBird);
+  if (affordable) {
+    return `Try placing ${affordable.name} on an empty field.`;
+  }
+
+  return 'No playable card right now. Return one bird from the board to recover resources.';
+}
+
+function canAffordBird(bird) {
+  return Object.entries(bird.cost).every(([resource, amount]) => {
+    return state.resources[resource] >= amount;
+  });
+}
+
+function openPopup(title, contentHTML) {
+  closePopup();
+
+  const overlay = document.createElement('div');
+  overlay.className = 'popup-overlay';
+  overlay.innerHTML = `
+    <div class="popup-dialog" role="dialog" aria-modal="true" aria-label="${title}">
+      <button class="popup-close" type="button" aria-label="Close">×</button>
+      <h3 class="popup-title">${title}</h3>
+      <div class="popup-content">${contentHTML}</div>
+      <button class="popup-ok" type="button">OK</button>
+    </div>
+  `;
+
+  const dialog = overlay.querySelector('.popup-dialog');
+  const closeBtn = overlay.querySelector('.popup-close');
+  const okBtn = overlay.querySelector('.popup-ok');
+
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) closePopup();
+  });
+
+  closeBtn.addEventListener('click', closePopup);
+  okBtn.addEventListener('click', closePopup);
+
+  const escHandler = (event) => {
+    if (event.key === 'Escape') closePopup();
+  };
+  overlay.dataset.escHandler = 'true';
+  document.addEventListener('keydown', escHandler, { once: true });
+
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('show'));
+  dialog.focus?.();
+}
+
+function closePopup() {
+  const existing = document.querySelector('.popup-overlay');
+  if (!existing) return;
+  existing.remove();
 }
 
 // ── Ressourcen-Bilder laden (Fallback zu Emoji) ──
